@@ -8,6 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,7 +22,7 @@ jobs:
           distribution: 'corretto'
 
       - name: Build and analyze with SonarCloud
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-              -Dsonar.projectKey=${{ github.repository_owner }}_${{ github.event.repository.name }}
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=$(echo "$GITHUB_REPOSITORY" | sed 's/\//_/g') \
+            -Dsonar.login="$SONAR_TOKEN"
