@@ -1,8 +1,7 @@
 name: Java CI with Maven - Test, Package & SonarCloud
 
 on:
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:  # uniquement déclenché manuellement
 
 jobs:
   build:
