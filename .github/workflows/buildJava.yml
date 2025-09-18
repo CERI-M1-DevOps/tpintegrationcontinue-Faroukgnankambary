@@ -26,7 +26,6 @@ jobs:
             -Dsonar.projectKey=$(echo "$GITHUB_REPOSITORY" | sed 's/\//_/g') \
             -Dsonar.login="$SONAR_TOKEN" \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-name: Java CI with Maven - Test, Package & SonarCloud
 
 on:
   pull_request:
